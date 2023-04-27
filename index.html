@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <!-- Ajustement de la taille du viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TIM-2W2 - Exercice 8</title>
+    <link rel="icon" type="image/png" href="favicon.png" sizes="all">
+
+    <!--Polices de caractères de Google-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap&display=swap" rel="stylesheet">
+
+    <!-- Intégration des styles -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Curseur personnalisé -->
+    <div class="curseur"></div>
+    
+    <h1>PENDU / prototype</h1>
+    <h4>((( Activer le son )))</h4>
+
+    <!-- Scène principal du jeu -->
+    <main>
+        <h2 class="indice"></h2>
+        <section class="lettres-du-mot"></section>
+        <section class="lettres-disponibles"></section>
+    </main>
+    
+    <!-- Barre de contrôle -->
+    <footer class="controle">
+        <div class="btn-nouvelle-partie">Nouvelle partie</div>
+    </footer>
+    
+    <!-- 
+        Fichiers JavaScript externes associés avec la page
+        (attention l'ordre d'inclusion des fichiers est important)
+    -->
+    <script src="js/banque-mots.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+/* Normalisation supplémentaire 
+============================================================================= */
+
+/* Notez l'utilisation des sélecteurs additionnels pour les pseudo-éléments */
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+/* Mise en page de base
+============================================================================= */
+html {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    scroll-behavior: smooth;
+    font-family: 'Asap', sans-serif;
+    /* Ajustement de la taille des polices à la racine du document */
+    font-size: clamp(14px, 0.5rem + 0.5vw, 24px);
+}
+
+body {
+    max-width: 100%;
+    height: 100%;
+    color: #221c49;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    margin: 2vw 0 1vw 0;
+}
+
+h4 {
+    text-align: center;
+}
+
+/* Contenu principal
+============================================================================= */
+/* Les sections du contenu principal */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+main > * {
+    width: 100%;
+    margin: 1vw 0;
+}
+
+.indice {
+    background-color: #d7c8dd;
+    padding: 1.5vw;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin: 1vw 0 2vw 0;
+}
+
+/* Remarquez la très utile pseudo-classe 'empty' */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/:empty */
+.indice:empty {
+    display: none;
+}
+
+.indice::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, #eea2a2 0%, #bbc1bf 19%, #57c6e1 42%, #b49fda 79%, #7ac5d8 100%);
+    top: 0;
+    left: 0;
+    transform: scaleX(1.5) skewX(-50deg); 
+    transition: transform 0.5s;
+}
+
+.indice.devoiler::after {
+    transform: scaleX(0); 
+}
+
+.lettres-du-mot {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1vw;
+}
+
+.lettres-du-mot > div {
+    position: relative;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10vw;
+    padding: 0.5vw;
+    border-radius: 1vw;
+    background-color: #7ac5d8;
+    box-shadow: 0.5vw 0.5vw 0.1vw 1vw rgba(255, 54, 125, 0.5);
+}
+
+.lettres-du-mot > div.devoiler {
+    box-shadow: 0.5vw 0.5vw 0.1vw 1vw rgba(60, 200, 85, 0.5);
+}
+
+.lettres-du-mot > div:hover {
+    transform: rotateX(0);
+}
+
+.lettres-du-mot > div::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #5e2c6c;
+    border-radius: 1vw;
+    padding: 0.5rem;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.lettres-du-mot > div.devoiler::before {
+    opacity: 0;
+}
+
+.lettres-disponibles {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 3vw 0 1vw 0;
+    padding: 2rem;
+    background-color: #eee;
+}
+
+.lettres-disponibles:empty {
+    display: none;
+}
+
+.lettres-disponibles > span {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #221c49;
+    border-radius: 0.5rem;
+    /* Empêcher la sélection du texte ;-) */
+    user-select: none;
+}
+
+.lettres-disponibles > span.choisie-succes {
+    background-color: rgba(60, 200, 85, 0.1);
+    color: #888;
+}
+
+.lettres-disponibles > span.choisie-echec {
+    background-color: rgba(255, 54, 124, 0.1);
+    color: #888;
+}
+
+/* Pied de page : barre de contrôle
+============================================================================= */
+footer {
+    display: flex;
+    justify-content: center;
+    column-gap: 1rem;
+    margin: 1vw 0;
+}
+
+.btn-nouvelle-partie {
+    position: relative;
+    padding: 1rem 2rem;
+    margin: 1rem 1rem 2rem 1rem;
+    border-radius: 30px;
+    font-weight: bold;
+    overflow: hidden;
+    user-select: none;
+    background-color: #221c49;
+    color: #bbb;
+}
+
+.btn-nouvelle-partie:hover {
+    color: #fff;
+}
+
+/* Curseur personnalisé
+============================================================================= */
+
+/* Propriétés personnalisées pour le déplacement du curseur perso */
+:root {
+    --mouse-x: 0px;
+    --mouse-y: 0px;
+}
+
+/* Curseur général de la page */
+.curseur {
+    position: fixed;
+    z-index: 1000;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #440461;
+    border-radius: 50%;
+    top: calc(var(--mouse-y) - 1rem);
+    left: calc(var(--mouse-x) - 1rem);
+    pointer-events: none;
+    will-change: top, left;
+    transition: width 0.25s, height 0.25s;
+}
+
+.curseur::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 50%;
+    border: 5px solid #440461;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Curseur inactif lorsqu'on quitte la fenêtre */
+.curseur.inactif {
+    display: none;
+}
+
+/* Curseur de survol de l'élément contenant l'indice du mot à deviner */
+.curseur.c-indice {
+    width: 20rem;
+    border-radius: 1rem;
+    left: calc(var(--mouse-x) - 10rem);
+    text-align: center;
+    line-height: 2rem;
+    transition: none;
+}
+
+.curseur.c-indice::after {
+    display: none;
+}
+
+/* Curseur de survol des boutons cliquables dans le UI */
+.curseur.c-bouton {
+    background-color: rgba(255,254,0, 0.6);
+    box-shadow: 0px 0px 20px 10px rgba(243,225,107, 0.9);
+    /* scale() ne marche pas (possiblement parce que position: fixed ???) */
+    width: 3rem;
+    height: 3rem;
+    top: calc(var(--mouse-y) - 1.5rem);
+    left: calc(var(--mouse-x) - 1.5rem);
+}
+
+.curseur.c-bouton::after {
+    display: none;
+}
+
